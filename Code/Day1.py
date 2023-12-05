@@ -1,5 +1,5 @@
 import numpy as np
-with open("Doc&images\input.txt","r") as file:
+with open("Doc&images\input_day1.txt","r") as file:
     file = file.read()
 
 lines = file.split("\n")
