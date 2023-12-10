@@ -28,17 +28,29 @@ position,nbres = identification(content)
 graph = np.array([[c for c in line] for line in content.split('\n')])
 
 def parcours(graph,position ,nbres):
+    result = 0
     for nb,ps in zip(nbres,position):
-        result = 0
         if len(nb) == 3:
             k,l = ps[1][0],ps[1][1]
-            #graph[k][l]
-            if 
-            for nx,ny in [(k+2,l),(k-2,l),(k,l+1),(k,l-1),(k+1,l+1),(k+1,l-1),(k+2,l+1),(k+2,l-1),(k-1,l+1),(k-1,l-1),(k-2,l+1),(k-2,l-1)]:
-                if graph[nx][ny] !='.' and graph[nx][ny].isdigit() == False:
-                    nb = int(nb)
-                    result += nb
+            for (nx,ny) in [(k,l+2),(k-1,l+2),(k-1,l+1),(k-1,l-1),(k-1,l-2),(k,l-2),(k+1,l-2),(k+1,l-1),(k+1,l),(k+1,l+2),(k-1,l),(k+1,l+1)]:
+                if 0<= nx < graph.shape[0] and 0 <= ny < graph.shape[1] and graph[nx][ny] !='.' and not graph[nx][ny].isdigit():
+                   nbre = int(graph[k][l-1] + graph[k][l] + graph[k][l+1])
+                   result += nbre
+        elif len(nb) == 2: 
+            k,l = ps[1][0],ps[1][1]
+            for (nx,ny) in [(k,l+1),(k-1,l+1),(k-1,l),(k-1,l-1),(k-1,l-2),(k,l-2),(k+1,l-2),(k+1,l-1),(k+1,l),(k+1,l+1)]:
+                if 0<= nx < graph.shape[0] and 0<= ny < graph.shape[1] and graph[nx][ny] !='.' and not graph[nx][ny].isdigit():
+                    nbre = int(graph[k][l-1]+graph[k][l])
+                    result += nbre
+        elif len(nb) == 1:
+            k,l = ps[0][0],ps[0][1]
+            for (nx,ny) in [(k,l+1),(k-1,l+1),(k-1,l),(k-1,l-1),(k,l-1),(k+1,l-1),(k+1,l),(k+1,l+1)]:
+                if 0<= nx < graph.shape[0] and 0<= ny < graph.shape[1] and graph[nx][ny] !='.' and not graph[nx][ny].isdigit():
+                    nbre = int(graph[k][l])
+                    print(nbre)
+                    result += nbre
 
+    return result
 
-parcours(graph,position,nbres)
-        
+res = parcours(graph,position,nbres)
+print(res)
