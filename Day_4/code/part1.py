@@ -1,4 +1,4 @@
-with open("Day_4\data.txt",'r') as file:
+with open("Day_4\Doc&images\data.txt",'r') as file:
     content = file.read()
 
 content = content.split("\n")
@@ -9,6 +9,7 @@ wins = [[c for c in others[i].split('|')[0].split()] for i in range(len(others))
 datas = [[c for c in others[i].split('|')[1].split()] for i in range(len(others))]
 
 result = 0
+"""
 for data, win in zip(datas,wins):  
     point = 0
     for d in data: 
@@ -20,4 +21,12 @@ for data, win in zip(datas,wins):
     result += point      
    
 print(result)
-    
+"""
+for data, win in zip(datas,wins):  
+    point = 0
+    for d in data: 
+        if d in win:
+           point += 1
+    if point > 0:    
+      result += 2**(point - 1)
+print(result)

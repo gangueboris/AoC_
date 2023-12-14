@@ -1,7 +1,7 @@
 from collections import defaultdict
 with open("Day_2\Docs&Images\input_Day2_part1.txt","r") as file:
     content = file.read()
-"""
+
 
 p1 = 0
 p2 = 0
@@ -22,8 +22,6 @@ for line in content.split('\n'):
         p2 += score
         if ok:
             p1 += int(id_.split()[-1])
-print(p1)
-print(p2)
 
 result = 0
 for line in content.split('\n'):
@@ -36,8 +34,6 @@ for line in content.split('\n'):
                ok = False
     if ok:
         result += int(id_.split()[-1])
-        print(id_)
 print(result)
 
-"""
  
