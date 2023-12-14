@@ -2,35 +2,42 @@ with open("Day_5\Doc&images\example.txt",'r') as file:
     content = file.read()
 
 content = content.split("\n")
+seeds = []
+seed_soil = []
+soil_fertilizer = []
+fertilizer_water = []
+water_light = []
+light_temperature = []
+temperature_humidity = []
+humidity_location = []
 
-seeds = [int(val) for val in content[0].split(':')[1].split()]
-seed_soil = [[] for i in range(5-3)] # 19-3
-soil_fertilizer = [[] for i in range(10-7)] #  54-21
-fertilizer_water = [[] for i in range(16-12)] # 82-56
-water_light = [[] for i in range(20-18)] # 122-84
-light_temperature = [[] for i in range(25-22)] # 134-125
-temperature_humidity = [[] for i in range(29-27)] # 173-136
-humidity_location = [[] for i in range(33-31)] # 197-175
+current_section = None
+for line in content:
+    colon_pos = line.find(":")
+    if colon_pos >= 0:
+        # Section change
+        section_name = line[:colon_pos]
+        line = line[colon_pos + 1:]  # Skip section name
 
-print(seeds)
-for i, line in enumerate(content[3:5]): # 3:19
-    seed_soil[i] = [int(val) for val in line.split()] 
-for i, line in enumerate(content[7:10]): # 21:54
-    soil_fertilizer[i] = [int(val) for val in line.split()] 
-for i, line in enumerate(content[12:16]): # 56:82
-    fertilizer_water[i] = [int(val) for val in line.split()]
-for i, line in enumerate(content[18:20]): # 84:122
-    water_light[i] = [int(val) for val in line.split()]
-for i, line in enumerate(content[22:25]): # 125:134
-    light_temperature[i] = [int(val) for val in line.split()]
-for i, line in enumerate(content[27:29]): # 136:173
-    temperature_humidity[i] = [int(val) for val in line.split()]
-for i, line in enumerate(content[31:33]): # 175:197
-    humidity_location[i] = [int(val) for val in line.split()]
-#print(seed_soil,soil_fertilizer,fertilizer_water,water_light,light_temperature,temperature_humidity,humidity_location)
-#print(soil_fertilizer)
+        current_section = {
+            "seeds": seeds,
+            "seed-to-soil map": seed_soil,
+            "soil-to-fertilizer map": soil_fertilizer,
+            "fertilizer-to-water map":fertilizer_water,
+            "water-to-light map":water_light,
+            "light-to-temperature map":light_temperature,
+            "temperature-to-humidity map":temperature_humidity,
+            "humidity-to-location map":humidity_location,
+        }[section_name]
+
+    # Parse line if there's something
+    line_data = line.split()
+    if len(line_data) > 0:
+        current_section.append([int(val) for val in line_data])
+
+#print(seeds,seed_soil,soil_fertilizer,fertilizer_water,water_light,light_temperature,temperature_humidity,humidity_location)
 locations = []
-for seed in seeds:
+for seed in seeds[0]:
     for line in seed_soil:
         if line[1] + line[2] > seed and seed >= line[1] :
             soil = line[0]
@@ -81,5 +88,3 @@ for seed in seeds:
             location = humidity
     print(seed,soil,fertilizer,water,light,temperature,humidity,location)
     locations.append(location)          
-#print(locations,min(locations))
-
