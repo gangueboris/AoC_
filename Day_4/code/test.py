@@ -39,50 +39,50 @@ for line in content:
 locations = []
 for seed in seeds[0]:
     for line in seed_soil:
-        if line[1] + line[2] > seed and seed >= line[1] :
+        if seed < line[1] + line[2] and seed >= line[1] :
             soil = line[0]
             soil+=  seed - line[1]
         else:
             soil = seed
                
     for line in soil_fertilizer:
-        if soil - line[1] < line[2] and soil - line[1] > 0:
+        if soil < line[1] + line[2] and soil >= line[1] :
             fertilizer = line[0]
             fertilizer+=  soil - line[1]
         else:
             fertilizer = soil
     
     for line in fertilizer_water:
-        if fertilizer - line[1] < line[2] and fertilizer - line[1] > 0:
-            water = line[0]
-            water+=  fertilizer - line[1]
+        if fertilizer < line[1] + line[2] and fertilizer >= line[1] :
+            water= line[0]
+            water+=  fertilizer- line[1]
         else:
             water = fertilizer
     
     for line in water_light:
-        if water - line[1] < line[2] and water - line[1] > 0:
-            light = line[0]
-            light +=  water - line[1]
+        if water < line[1] + line[2]  and water >= line[1] :
+            light= line[0]
+            light+=  water - line[1]
         else:
             light = water
     
     for line in light_temperature:
-        if light - line[1] < line[2] and light - line[1] > 0:
+        if light < line[1] + line[2] and light >= line[1] :
             temperature = line[0]
-            temperature +=  light - line[1]
+            temperature+=  light - line[1]
         else:
             temperature = light
     
     for line in temperature_humidity:
-        if temperature - line[1] < line[2] and temperature - line[1] > 0:
+        if temperature < line[1] + line[2] and temperature >= line[1] :
             humidity = line[0]
-            humidity +=  temperature - line[1]
+            humidity+=  temperature - line[1]
         else:
             humidity = temperature
 
     for line in humidity_location:
-        if humidity - line[1] < line[2] and humidity - line[1] > 0:
-            location = line[0]
+        if humidity< line[1] + line[2] and humidity >= line[1] :
+            location= line[0]
             location+=  humidity - line[1]
         else:
             location = humidity
