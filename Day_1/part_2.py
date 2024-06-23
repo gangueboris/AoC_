@@ -1,6 +1,6 @@
 with open("Day_1\p1.txt", 'r') as file:
     content = file.read().splitlines()
-    
+
 """
 Approch: store all digits or digitsChar that we can find and take the first and the last
 """
@@ -19,9 +19,6 @@ def findCode2(content):
     return res
 
 print(findCode2(content))
-                
-                
-
 
                
             
