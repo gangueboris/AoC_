@@ -1,20 +1,24 @@
-content = open('Day_3/test.txt', 'r').read().splitlines()
+content = open('Day_3/input.txt', 'r').read().splitlines()
 """
 Goal: add up all part numbers
 
 A part number is a number which is adjacent even in diagonal to a symbol.
-NB: '.' is not considered like a symbol.
-
+NB: 
+- '.' is not considered like a symbol.
+- Does forget to take in account the last number on a row
 Approch:
 - Browse the input in goal to find a number
-- if number find, generate neighbbour table and explore around
-- if we meet in the exploration something different than '.' && !isdigit(grid[r][c]) and up the number to res
+- if number find explore around 
+- if we meet in the exploration something different than '.' && !isdigit(grid[r][c]) and up the number to res and directly move to the next iteration
+
+Time complexity: O(n * m)
+Space complexity O(1)
  
 
 input:
 467..114..
 ...*......
-..35..633.
+..35..6330  <-- Here
 ......#...
 617*......
 .....+.58.
@@ -24,72 +28,40 @@ input:
 .664.598..
 
 1. use the algorithm of flood filling
+"""
+def isSymbol(grid, r, c):
+    rowBounds = 0 <= r < len(grid)
+    colsBounds = 0 <= c < len(grid[0])
+    return rowBounds and colsBounds and grid[r][c] != '.' and not grid[r][c].isdigit()
 
-"""
-"""
 def findPartNumber(grid):
     res = 0
     for r in range(len(grid)):
         digit = ''
-        for c in range(len(grid[0])):
-            if grid[r][c].isdigit():
+        c = 0
+        while c < len(grid[0]):
+            digit = ''
+            while c < len(grid[0]) and grid[r][c].isdigit(): # Ierate to find a number and ensuring that even a number at the end of row is taken in account
                 digit += grid[r][c]
-            else:
-                if digit != '':
-                    #print(digit)
-                    for rn, cn in  findNeighbours(digit): # generate (rn, cn) of (digit)
-                        rowBounds = 0 <= rn < len(grid)
-                        colsBounds = 0 <= cn < len(grid[0])
-                        if rowBounds and colsBounds and grid[rn][cn] != '.' and not grid[rn][cn].isdigit():
-                            res += int(digit)
+                c += 1
+           
+            if digit == '':  # if this character in the row doesn't start witha a digit, move to the next character
+                c += 1
+                continue
 
-                    digit = ''
+            # looks left and right of the number
+            start, end = c - len(digit), c -1    # ... are position in column
+            #print([digit, start, end])
+            if isSymbol(grid, r, start - 1) or isSymbol(grid, r, end + 1): # looks left and right the number
+                res += int(digit) 
+                continue # find now move to the next iteration
+
+            for k in range(start - 1, end + 2): 
+                if isSymbol(grid, r - 1, k) or isSymbol(grid, r + 1, k): # tcheck at the time down and top of each digit of the number including top and down of the left and right
+                    res += int(digit)
+                    break # to note count multiple time when we have several symbol around the number
+                    
     return res
 
     
-
-findPartNumber(content)
-"""
-
-with open('Day_3/test.txt', 'r') as fin:
-    data = fin.read()
-    lines = data.strip().split("\n")
-
-n = len(lines)
-m = len(lines[0])
-
-
-def is_symbol(i, j):
-    return 0 <= i < n and 0 <= j < m and lines[i][j] != "." and not lines[i][j].isdigit()
-       
-ans = 0
-
-for i, line in enumerate(lines): # each row and line
-    start = 0
-                        # start & j € [colomn]
-    j = 0
-
-    while j < m: # iterate over the column, takes each character one by one
-        start = j # why putting there and note in the coming loop ?
-        num = ""
-        while j < m and line[j].isdigit(): # when I find a starting number of a digit, looping to form the entire number
-            num += line[j] # add up to constitute the number
-            j += 1
-
-        if num == "": # when a character is not a starting digit of a number, ignore the rest of the code and move to the next iteration
-            j += 1
-            continue
-
-        num = int(num) # convert the founded number to an integer
-
-        # Number ended, look around
-        if is_symbol(i, start-1) or is_symbol(i, j): # first look at left and right, if there is a symbol, add up the number to ans and move on
-            ans += num
-            continue
-
-        for k in range(start-1, j+1): # j+1 to take in account the j
-            if is_symbol(i-1, k) or is_symbol(i+1, k): # tcheck at the time down and top of each digit of the number including top and down of the left and right
-                ans += num
-                break
-
-print("result: ", ans)
+print(findPartNumber(content))
