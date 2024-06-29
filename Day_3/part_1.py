@@ -37,7 +37,6 @@ def isSymbol(grid, r, c):
 def findPartNumber(grid):
     res = 0
     for r in range(len(grid)):
-        digit = ''
         c = 0
         while c < len(grid[0]):
             digit = ''
@@ -64,4 +63,4 @@ def findPartNumber(grid):
     return res
 
     
-print(findPartNumber(content))
+print(findPartNumber(content)) # 530495
