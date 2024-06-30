@@ -11,7 +11,7 @@ I will first check if the coordonate of that '*' is temp:
  if not: temp[(coordonate)] = []
  else: temp[(coordonate)].append(partNumber)
 
-- At the end of the exploration, I will iterate trough temp by checking which value has length of 2; make the product between them and
+- At the end of the exploration, I will iterate through temp by checking which value has length of 2; make the product between them and
 add up to my result.
 
 467..114..
