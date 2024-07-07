@@ -19,7 +19,7 @@ Approch2:
 
 """
 #---------------------------------- Approch 2 --------------------------------------------#
-seeds, *blocks = open('Day_5/test.txt', 'r').read().split('\n\n')
+seeds, *blocks = open('Day_5/input.txt', 'r').read().split('\n\n')
 def approch_one(seeds, blocks):
     seeds = list(map(int,seeds.split(':')[1].split()))
 
