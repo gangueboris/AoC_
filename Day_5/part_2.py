@@ -12,15 +12,13 @@ themselves src & dest.
 - find min and return.
 """
 
-
-
-input, *blocks = open('Day_5/test.txt', 'r').read().split('\n\n')
+input, *blocks = open('Day_5/input.txt', 'r').read().split('\n\n')
 
 #extract and convert seeds to int
 input = list(map(int, input.split(':')[1].split()))
 
 # Form pairs (start, end)
-seeds = [(input[i], input[i] + input[i+1]) for i in range(0, len(input),2)]
+seeds = [(input[i], input[i] + input[i+1]) for i in range(0, len(input), 2)]
 
 for block in blocks:
     ranges = []                                              # Store numbers of each map
@@ -33,18 +31,16 @@ for block in blocks:
         for dest, src, rang in ranges:                           # Go numbers by numbers in each map
             os = max(start, src)
             oe = min(end, src + rang)
-            print(os, oe)
             if os < oe:                                                 # Be sure that we find the overlap
-                new_seed.append((dest + os - start, dest + oe - start)) # Add all dest as range to new_seed
+                new_seed.append((dest + os - src, dest + oe - src))    # Add all dest as range to new_seed
                 # Manage remains
                 if start < os:   # check left if remains
                     seeds.append((start, os))
                 if oe < end:       # check right if remains
                     seeds.append((oe, end))
-                break
-                
+                break        
         else:
             new_seed.append((start, end))                # Add out of overlap to the new_seed (seeds which are src == dest) for the next map
     seeds = new_seed                                     # update the seed for the next map
    
-print(seeds)
+print(min(seeds)[0]) # 1240035
