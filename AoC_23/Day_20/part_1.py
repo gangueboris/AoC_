@@ -1,0 +1,1 @@
+# This problem is about implementing a simulation of the process to count n of low and high
