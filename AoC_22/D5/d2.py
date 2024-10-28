@@ -1,4 +1,4 @@
-# 8: 25 PM
+# 8: 25 PM 9:35
 from collections import defaultdict
 mapping = defaultdict(list)
 
@@ -26,7 +26,7 @@ for line in stacks[:-1]:
 
 for n, src, dest in movs:
     for i in range(n):
-        mapping[dest].insert(0, mapping[src][0])
+        mapping[dest].insert(i, mapping[src][0])
         mapping[src].remove(mapping[src][0])
 
 mapping = dict(sorted(mapping.items()))
