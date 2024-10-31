@@ -1,4 +1,4 @@
-# 5:06 - 5:39
+# 5:06 - 5:39 - 5:41
 input = open('AoC_22/D6/input.txt').read()
 
 def solve(input):
