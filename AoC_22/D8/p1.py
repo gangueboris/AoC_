@@ -16,4 +16,3 @@ for r in range(1, ROW-1):
             res += 1   
  
 print(res)
-       
