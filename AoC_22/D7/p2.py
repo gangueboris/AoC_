@@ -25,21 +25,31 @@ for line in open('AoC_22/D7/input.txt').read().splitlines():
         else:
             cwd[file] = int(size)
 
-def solve(dir = root):
+def findRootSize(dir = root):
     if type(dir) == int:
-        return (dir, 0)
-    size = 0
-    ans = 0
+        return (dir)
+    total = 0
     for child in dir.values():
-        s, a = solve(child)
-        size += s
-        ans += a
+        total += findRootSize(child)
+    return (total)
+            
+def findDirSize(dir, dirSizes):
+    if type(dir) == int:
+        return (dir)
+    total = 0
+    for child in dir.values():
+        total += findDirSize(child, dirSizes)
+    dirSizes.append(total)
+    return (total)
 
-    if size <= 100000:
-        ans += size
-    return (size, ans)
 
+required = 30000000
+unused = 70000000 - findRootSize()
+dirSizes = []
+findDirSize(root, dirSizes)
+dirSizes.sort()
+for val in dirSizes:
+    if val + unused >= required:
+       print(val)
+       break
 
-print(solve()[1])
-
- 
