@@ -5,6 +5,7 @@ word = "XMAS"
 def getDiagonals(grid):
     rows = len(grid)
     cols = len(grid[0])
+    print(rows, cols)
     diagonals = []
 
     # Top-left to bottom-right diagonals
@@ -29,6 +30,7 @@ def getDiagonals(grid):
 
     return diagonals
 
+getDiagonals(grid)
 
 def HoriVert(line, word):
     l = 0
@@ -66,8 +68,6 @@ for c in range(len(grid[0])):
 
 for diag in getDiagonals(grid):
     ans += HoriVert(diag, word)
-
-
 
 print(ans)
 
