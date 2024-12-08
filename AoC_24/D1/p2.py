@@ -10,8 +10,6 @@ for l in Lrecord:
             count += 1
     total += (l * count)
 
-
-
 print(total)
 
 
