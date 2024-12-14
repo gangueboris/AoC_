@@ -43,18 +43,12 @@ int main() {
                     int dr = r2 - r1;
                     int dc = c2 - c1;
 
-                    int rr = r1 - dr;
-                    int cc = c1 - dc;
-                    if (0 <= rr && rr < height && 0 <= cc && cc < width) {
+                    int rr = r1;
+                    int cc = c1;
+                    while (0 <= rr && rr < height && 0 <= cc && cc < width) {
                         visited.insert({rr, cc});
-                        visited.insert({r1, c1});
-                    }
-
-                    rr = r2 + dr;
-                    cc = c2 + dc;
-                    if (0 <= rr && rr < height && 0 <= cc && cc < width) {
-                        visited.insert({rr, cc});
-                        visited.insert({r2, c2});
+                        rr += dr;
+                        cc += dc;
                     }
                 }
             }
