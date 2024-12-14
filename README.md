@@ -6,4 +6,4 @@ Each day, the difficulty of the problems increases.
 I practice AoC problems to enhance my skills in new programming languages and, most importantly, to improve my problem-solving abilities.
 
 - Python: AoC_22, AoC_23
-- - C++ : AoC_24
+- C++ : AoC_24
